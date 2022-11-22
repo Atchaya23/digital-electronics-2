@@ -1,5 +1,5 @@
 
-# Lab 8: INSERT_YOUR_FIRSTNAME INSERT_YOUR_LASTNAME
+# Lab 8: Atchaya TIROUGNANAME
 
 ### Instruction set
 
