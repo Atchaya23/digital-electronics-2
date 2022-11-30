@@ -34,6 +34,8 @@
 #include <stdlib.h>         // C library. Needed for number conversions
 
 
+
+
 /* Function definitions ----------------------------------------------*/
 /**********************************************************************
  * Function: Main function where the program execution begins
@@ -43,122 +45,45 @@
  **********************************************************************/
 int main(void)
 {
-
-// Custom character definition using https://omerk.github.io/lcdchargen/
-    uint8_t customChar[8] = {
-        	0b00000,
-	        0b10001,
-	        0b11011,
-        	0b10101,
-        	0b11011,
-	        0b11111,
-        	0b11011,
-	        0b00000
-    };
-
-    // Initialize display
+    /*
     lcd_init(LCD_DISP_ON);
+    lcd_gotoxy(0,0);
+    lcd_puts("HI");
 
-    lcd_command(1<<LCD_CGRAM);       // Set addressing to CGRAM (Character Generator RAM)
-                                     // ie to individual lines of character patterns
-    for (uint8_t i = 0; i < 8; i++)  // Copy new character patterns line by line to CGRAM
-        lcd_data(customChar[i]);
-    lcd_command(1<<LCD_DDRAM);       // Set addressing back to DDRAM (Display Data RAM)
-                                     // ie to character codes
-
-    // Display symbol with Character code 0
-    lcd_putc(0x00);
-
-
-
-    // Initialize display
-    //
-    lcd_init(LCD_DISP_ON_CURSOR_BLINK);
-
-    // Put string(s) on LCD screen
+    lcd_gotoxy(0,0);
+    if(analogRead(X_pin) == 513){
+    lcd_puts("STOPPED");
+    } 
+    else if(analogRead(X_pin) < 513) {
+    lcd_puts("REVERSE");
+    } 
+    else if(analogRead(X_pin) > 513) {
+    lcd_puts("FORWARD");
+    }
     
-    //lcd_putc('!');
-    lcd_gotoxy(1, 0);
-    lcd_puts("00:00.0");
-    lcd_gotoxy(11, 0);
-    lcd_puts("a");
-    lcd_gotoxy(1, 1);
-    lcd_puts("b");
-    lcd_gotoxy(11, 1);
-    lcd_puts("c");
-
-
-    //Set back light at PB2
-    GPIO_mode_output(&DDRB, PB2);
-    //GPIO_write_low(&PORTB, PB2);
-    GPIO_write_high(&PORTB, PB2);
-
-    // Configuration of 8-bit Timer/Counter2 for Stopwatch update
-    // Set the overflow prescaler to 16 ms and enable interrupt
-    TIM2_overflow_16ms();
-    TIM2_overflow_interrupt_enable();
-
-
-    // Enables interrupts by setting the global interrupt mask
-    sei();
-
-    // Infinite loop
-    while (1)
-    {
-        /* Empty loop. All subsequent operations are performed exclusively 
-         * inside interrupt service routines, ISRs */
+    lcd_gotoxy(0, 1);
+    if(analogRead(X_PIN) == 512){
+    lcd_puts("STOPPED");
+    } 
+    else if(analogRead(X_PIN) < 512) {
+    lcd_puts("LEFT ");
+    } 
+    else if(analogRead(X_PIN) > 512) {
+    lcd_puts("RIGHT");
     }
+    
 
-    // Will never reach this
-    return 0;
-}
+    int var = analogRead(X_PIN);
+    printf(var);
+    */
+    uint16_t value;
+    char string[4];
+    value = ADC;
 
+    itoa(value, string, 10);
+    lcd_gotoxy(8,0);
+    lcd_puts("  ");
+    lcd_gotoxy(8,0);
+    lcd_puts(string);
 
-/* Interrupt service routines ----------------------------------------*/
-/**********************************************************************
- * Function: Timer/Counter2 overflow interrupt
- * Purpose:  Update the stopwatch on LCD screen every sixth overflow,
- *           ie approximately every 100 ms (6 x 16 ms = 100 ms).
- **********************************************************************/
-ISR(TIMER2_OVF_vect)
-{
-    static uint8_t no_of_overflows = 0;
-    static uint8_t tenths = 0;  // Tenths of a second
-    static uint8_t secs = 0;    // Seconds
-    char string[2];             // String for converted numbers by itoa()
-
-    no_of_overflows++;
-    if (no_of_overflows >= 6)
-    {
-        // Do this every 6 x 16 ms = 100 ms
-        no_of_overflows = 0;
-
-        // Count tenth of seconds 0, 1, ..., 9, 0, 1, ...
-        tenths++;
-        if (tenths >9)
-        {
-          tenths = 0;
-          //Add seconds to stopwatch
-          secs++;
-          if(secs >59)
-          {
-            secs = 0;
-          }
-      
-
-        //Display seconds
-        itoa(secs,string,10);
-        lcd_gotoxy(4,0);
-        if(secs<10)
-            lcd_putc('0');
-        lcd_puts(string);
-        }
-
-
-        itoa(tenths, string, 10);  // Convert decimal value to string
-        // Display "00:00.tenths"
-        lcd_gotoxy(7, 0);
-        lcd_puts(string);
-    }
-    // Else do nothing and exit the ISR
 }
