@@ -53,46 +53,19 @@ int main(void)
 
     // Initialize display
     lcd_init(LCD_DISP_ON);
-    //lcd_gotoxy(1, 0); lcd_puts("Y:");
-    //lcd_gotoxy(1, 1); lcd_puts("X:");
-
 
     
     lcd_gotoxy(var_x, var_y); lcd_puts("I");
-    //lcd_gotoxy(10, 1); lcd_puts("O");
 
 
     lcd_command(1<<LCD_CGRAM);       // Set addressing to CGRAM (Character Generator RAM)
-                                     // ie to individual lines of character patterns
-    /*for (uint8_t i = 0; i < 8; i++)  // Copy new character patterns line by line to CGRAM
-        lcd_data(customChar[i]);
-    */lcd_command(1<<LCD_DDRAM);       // Set addressing back to DDRAM (Display Data RAM)
-                                     // ie to character codes
+    lcd_command(1<<LCD_DDRAM);       // Set addressing back to DDRAM (Display Data RAM)
     
    
 
-    // Display symbol with Character code 0
     
     lcd_putc(0x00);
-    // Initialize display
-    //lcd_init(LCD_DISP_ON_CURSOR_BLINK);
 
-    // Put string(s) on LCD screen
-    //lcd_gotoxy(6, 1);
-    //lcd_puts("LCD Test");
-    //lcd_putc('!');
-
-    //question 7 
-    //lcd_clrscr();
-    /*lcd_gotoxy(1,0);
-    lcd_puts("00:00.0");
-    lcd_gotoxy(11,0);
-    lcd_putc('a');
-    lcd_gotoxy(1,1);
-    lcd_puts("b");
-    lcd_gotoxy(11,1);
-    lcd_puts("c");
-    */// set black light at PB2
     GPIO_mode_output(&DDRB, PB2);
     GPIO_write_high(&PORTB,PB2);
 
@@ -168,40 +141,22 @@ ISR(ADC_vect)
 
       itoa(value, string, 10);
       lcd_gotoxy(3,0);
-      //lcd_puts(string);
 
         if( value > 530){
         lcd_clrscr();
         lcd_gotoxy(1, 0);
         lcd_puts("DOWN");
-        //lcd_gotoxy(10, 1); lcd_puts("O");
-        /*if(var_x=10){
-          lcd_clrscr();
-          lcd_gotoxy(1, 0);
-          lcd_puts("LOST");
-        }else{*/
         lcd_gotoxy(var_x, 1);
         lcd_puts("I");
-        //}
     
 
     }
-    /*
-    if (value <530 && value>500){
-        lcd_gotoxy(2, 1);
-        lcd_puts("      ");
-        lcd_gotoxy(13, 1);
-        lcd_puts("      ");
-        lcd_gotoxy(7, 1);
-        //lcd_puts("BUTTON");
-    }
-    */
+
     
         if( value < 500){
         lcd_clrscr();
         lcd_gotoxy(1, 0);
         lcd_puts("UP");
-        //lcd_gotoxy(10, 1); lcd_puts("O");
         if(var_x>4){
           lcd_gotoxy(var_x, 0);
           lcd_puts("I");
@@ -216,21 +171,13 @@ ISR(ADC_vect)
 
       itoa(value, string, 10);
       lcd_gotoxy(3,1);
-      //lcd_puts(string);
-
+            
         if( value > 505){
         lcd_clrscr();
         lcd_gotoxy(1, 0);
         lcd_puts("LEFT");
-        //lcd_gotoxy(10, 1); lcd_puts("O");
-        /*if(var_x=11){
-          lcd_clrscr();
-          lcd_gotoxy(1, 0);
-          lcd_puts("LOST");
-        }else{*/
         lcd_gotoxy(var_x-1, var_y);
         lcd_puts("I");
-        //}
         var_x=var_x-1;
 
     }
@@ -240,15 +187,8 @@ ISR(ADC_vect)
         
         lcd_gotoxy(1, 0);
         lcd_puts("RIGHT");
-        //lcd_gotoxy(10, 1); lcd_puts("O");
-        /*if(var_x=9){
-          lcd_clrscr();
-          lcd_gotoxy(1, 0);
-          lcd_puts("LOST");
-        }else{*/
         lcd_gotoxy(var_x+1, var_y);
         lcd_puts("I");
-        //}
         var_x+=1;
 
 
@@ -262,65 +202,5 @@ ISR(ADC_vect)
 
     }
 
-
-    
-    // Read converted value
-    // Note that, register pair ADCH and ADCL can be read as a 16-bit value ADC
-    
-    // Convert "value" to "string" and display it
-
-
-    //print the decimal value converted into hexa
-    /*
-    itoa(channel, string, 10);
-    lcd_gotoxy(13,0);
-    lcd_puts("   ");
-    lcd_gotoxy(13, 0);
-    lcd_puts(string);
-  */
-
-
-
-    
-    /*switch (xvalue)
-    {
-      case (520 < xvalue):
-        lcd_gotoxy(8, 1);
-        lcd_puts("      ");
-        lcd_gotoxy(8, 1);
-        lcd_puts("none");
-        break;
-      case 640:
-        lcd_gotoxy(8, 1);
-        lcd_puts("      ");
-        lcd_gotoxy(8, 1);
-        lcd_puts("SELECT");
-        break;
-      case 409:
-        lcd_gotoxy(8, 1);
-        lcd_puts("      ");
-        lcd_gotoxy(8, 1);
-        lcd_puts("LEFT");
-        break;
-      case 257:
-        lcd_gotoxy(8, 1);
-        lcd_puts("      ");
-        lcd_gotoxy(8, 1);
-        lcd_puts("DOWN");
-        break;
-      case 99:
-        lcd_gotoxy(8, 1);
-        lcd_puts("      ");
-        lcd_gotoxy(8, 1);
-        lcd_puts("UP");
-        break;
-      case 0:
-        lcd_gotoxy(8, 1);
-        lcd_puts("      ");
-        lcd_gotoxy(8, 1);
-        lcd_puts("RIGHT");
-        break;
-    }
-    */
 }
 
