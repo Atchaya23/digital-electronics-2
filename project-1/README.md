@@ -2,7 +2,7 @@
 ## TEAM MEMBERS
 - Maëlle SORIANO
 - Atchaya TIROUGNANAME
-- 
+
 ## HARDWARE DESCRIPTION
 
 For our project, we used the next components:
