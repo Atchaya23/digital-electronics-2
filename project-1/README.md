@@ -23,7 +23,6 @@ Our hardware has been connected to these pins, and we have used different regist
 
 ### Joystick
 
-![image](https://user-images.githubusercontent.com/114863539/206877890-6c17b4d4-ae4d-4fff-8d66-6b673cac62f4.png)
 
 The Analog Joystick is similar to two potentiometers connected together, one for the vertical movement (Y-axis) and other for the horizontal movement (X-axis). The joystick also comes with a Select switch.
 
@@ -118,6 +117,9 @@ Flowchart of ISR(TIMER1_OVF_vect)
 
 
 Flowchart of ISR(ADC_vect)
+
+![image](https://user-images.githubusercontent.com/114863539/206879768-af741499-9aaf-45fa-8497-1c0ee84ac8f5.png)
+
 
 
 ### int main()
