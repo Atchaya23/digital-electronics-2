@@ -75,8 +75,9 @@ int main(void)
     ADCSRA = ADCSRA | (1<<ADIE);
     // Set clock prescaler to 128
     ADCSRA = ADCSRA | (1<<ADPS2 | 1<<ADPS1 | 1<<ADPS0);
-    // Configuration of 8-bit Timer/Counter2 for Stopwatch update
-    // Set the overflow prescaler to 16 ms and enable interrupt
+    
+    // Configuration of Timer/Counter1 
+    // Set the overflow prescaler to 33 ms and enable interrupt
     TIM1_overflow_33ms();
     TIM1_overflow_interrupt_enable();
 
