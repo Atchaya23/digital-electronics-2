@@ -2,16 +2,15 @@
 ## TEAM MEMBERS
 - Maëlle SORIANO
 - Atchaya TIROUGNANAME
+- 
 ## HARDWARE DESCRIPTION
 
 ![Image of all hardware](https://github.com/NestorGorrotxategi/digitalelectronics2/blob/main/lab-project1/Schematic.png)
 
 As we see in the picture above, we have used the following hardware for our project:
 - Arduino Uno with AtmelMega328P MCU.
-- Joystick with 2ADC signals and a switch.
-- A rotary encoder with a switch.
+- Joystick .
 - Digilent PmodCLP LCD module.
-- A breadboard.
 
 We have carried out some research on every piece of hardware that we have been asked to implement for the project:
 
@@ -37,54 +36,21 @@ The first signals have to be processed by ADC channels. This is why **Vrx** and 
 
 As far as the **switch** connection is concerned, as it is a digital signal, it has been connected to **digital pin 13 (PB5)** as an input.
 
-### Rotary encoder
-
-A rotary encoder is a position sensor which generates an electric digital signal and provides information about the angular position of the rotating shaft. In addition, it has a push button, which also works as a digital signal.
-
-Briefly, functioning of rotary encoders will be explained. The encoder has a disk with evenly spaced contact zones connected to a common pin. In addition, it has two other separate contact pins A and B, which are decisive for the correct working of the encoder. 
-
-When the disk rotates step by step, A and B pins make contact with the common pin, so two output signals will be generated. Comparing both signals we are able to know the rotated position of the encoder.
-
-![Image of all hardware](https://github.com/NestorGorrotxategi/digitalelectronics2/blob/main/lab-project1/Rotary-Encoder-Arduino-Tutorial-Example.webp)
-
-In our case, **Output A** has been connected to digital **pin 10** (PB2, CLK signal), while **Output B** is connected to digital **pin 11** (PB3, DT signal). Both pins have been defined as input signals.
-
-The **SW** button pin has been connected to digital **pin 12** (PB4) as an input.
-
 ### Digilent PmodCLP LCD module
 
 ![Image of all hardware](https://github.com/NestorGorrotxategi/digitalelectronics2/blob/main/lab-project1/Digilent_PmodCLP_30044294-01.jpg)
 
 The Digilent PmodCLP is a 16x2 character LCD used to display up to 32 different characters at a time. It uses a 8-bit parallel data interface for communication.
 
-For our project, we have used the following connections.
 
-For J1 bottom half pinout:
-- Pin 7: DB4 (**PD4 pin 4** on Arduino Uno).
-- Pin 8: DB5 (**PD5 pin 5** on Arduino Uno).
-- Pin 9: DB6 (**PD6 pin 6** on Arduino Uno).
-- Pin 10: DB7 (**PD7 pin 7** on Arduino Uno).
 
-For J2 pinout:
-- Pin 1: RS (**PB0 pin 8** on Arduino Uno).
-- Pin 2: R/W (**GND on breadboard**).
-- Pin 3: E (**PB1 pin 9** on Arduino Uno).
-- Pin 5: GND (**GND on breadboard**).
-- Pin 6: VCC (**VCC on breadboard**).
-
-### Breadboard
-
-It is a construction base used to create electronic circuits. In our project, we have used the breadboard to provide different modules with VCC from Arduino Uno and also offer GND.
 
 ### IMPLEMENTATION
 
-We have thought about a simple and funny implementation for our project. With the given modules, we have created a program able to control direction and acceleration of a vehicle. Furthermore, we have added some extra features, such as a buzzer and a rear camera.
 
-First, we read the values of both Joystick and Encoder. If Joystick's push button is pressed, a buzzer activates and it is displayed on the LCD screen. Instead, if Encoder's push button is pressed, the rear camera activates and it is also displayed on screen.
+We decided to do a simple implementation for our project using the joystick. We wanted to do a little game where the user have to move the character "I" and when he finish the x axis, the user "wins". And at the same time, we display the movements of the joystick.
 
-The Joystick is used to set a direction to the vehicle. Turning the Joystick, the direction in which the vehicle will move is displayed on screen.
-
-The encoder is used to decide if the vehicle is accelerating or deccelerating. If the encoder is turned clockwise, the vehicle will accelerate. Opposite, if the encoder is turned counter clockwise, the vehicle will slow down.
+To implement our idea, we read the value of our joystick and display it on our LCD screen and momve the character "I" according to the movements of the joystick. 
 
 
 ## SOFTWARE DESCRIPTION
@@ -92,6 +58,8 @@ The encoder is used to decide if the vehicle is accelerating or deccelerating. I
 Our project's library and source has the following structure:
 ```
 ├── lib
+|   ├── Joystick
+|   |   └── joystick_definitions.h
 │   ├── gpio
 │   │   ├── gpio.c
 │   │   └── gpio.h
@@ -115,72 +83,63 @@ Source file **.c** is used to implement the code.
 To implement this library in our code, we use ```#include``` directive. Then, whenever a function from this library is called, the control of the program is transferred to the function.
 
 Our GPIO library consists of:
-- [Header file](https://github.com/NestorGorrotxategi/digitalelectronics2/blob/main/lab-project1/lib/gpio/gpio.h) gpio.h.
-- [Library source](https://github.com/NestorGorrotxategi/digitalelectronics2/blob/main/lab-project1/lib/gpio/gpio.c) file gpio.c.
+- [Header file](https://github.com/Atchaya23/digital-electronics-2/blob/main/project-1/lib/gpio/gpio.h) gpio.h.
+- [Library source](https://github.com/Atchaya23/digital-electronics-2/blob/main/project-1/lib/gpio/gpio.c) file gpio.c.
 
 
 ### LCD
 
 So as to make LCD registers and commands easier, we are using a LCD library file developped by Peter Fleury which consist of 3 files:
 
-- [Header file](https://github.com/NestorGorrotxategi/digitalelectronics2/blob/main/lab-project1/lib/lcd/lcd.h) lcd.h.
-- [Source file](https://github.com/NestorGorrotxategi/digitalelectronics2/blob/main/lab-project1/lib/lcd/lcd.c) lcd.c.
-- [Lcd definitions](https://github.com/NestorGorrotxategi/digitalelectronics2/blob/main/lab-project1/lib/lcd/lcd_definitions.h) lcd_definitions.h.
+- [Header file](https://github.com/Atchaya23/digital-electronics-2/blob/main/project-1/lib/lcd/lcd.h) lcd.h.
+- [Source file](https://github.com/Atchaya23/digital-electronics-2/blob/main/project-1/lib/lcd/lcd.c) lcd.c.
+- [Lcd definitions](https://github.com/Atchaya23/digital-electronics-2/blob/main/project-1/lib/lcd/lcd_definitions.h) lcd_definitions.h.
+
+### JOYSTICK
+
+We created a new library to define the ports for the x and y value of the joystick.
+#define JOY_X_VALUE PB5
+#define JOY_Y_VALUE PB4
+We then included this file into our main file by using #include "joystick_definitions.h".
 
 ### MAIN
 
-After defining libraries and timer files, we have created a main.c file inside ```src``` folder. Here is the main code of our project with includes, definitions, and functions:
+We created a main.c file inside ```src``` folder.In the main code you can find our project with includes, definitions, and functions:
 
-- [Main file](https://github.com/NestorGorrotxategi/digitalelectronics2/blob/main/lab-project1/src/main.c) main.c.
+- [Main file](https://github.com/Atchaya23/digital-electronics-2/blob/main/project-1/src/main.c) main.c.
 
 Here are the flowcharts of the main function and ISRs of our project.
 
 ### int main()
 
-* initializes the LCD screen.
-* configure the ADC.
-* sets overflows for Timer1 and Timer2.
-* enables interupts.
-* sets infinite loop for working device.
-
-![Image of all hardware](https://github.com/NestorGorrotxategi/digitalelectronics2/blob/main/lab-project1/flowcharts/main.png)
+* Initialize the LCD display.
+* Configure the Analog-to-Digital Convertion unit.
+* Set the overflow for Timer1.
+* Enables interupts (sei()).
+* Infinite loop.
 
 
 
 
 ### ISR(Timer1)
 
-* Interupt service which switches the ADC channel every 100 ms.
-
-![Image of all hardware](https://github.com/NestorGorrotxategi/digitalelectronics2/blob/main/lab-project1/flowcharts/TIMER1.jpg)
-
-
-
-
-### ISR(Timer2)
-
-* Interupt service which overflows every 4 ms.
-* Reads digital data sent by Encoder (Displays "REAR CAMERA" if you push the encoder. If not it displays acceleration or deceleration depending on the sense of rotation).
-* Reads the pushbutton from the Joystick( Displays "BUZZER" if the button is pushed).
-
-![Image of all hardware](https://github.com/NestorGorrotxategi/digitalelectronics2/blob/main/lab-project1/flowcharts/TIMER2.png)
-
+* Start ADC conversion.
 
 
 
 ### ISR(ADC_vect)
 
-* Interupt service which is responsible for displaying the direction accordingly to axis values of the joystick.
-* Displays on the lcd the direction whick the joystick indicates(up-right, up-left, down-right ,down-left).
-
-![Image of all hardware](https://github.com/NestorGorrotxategi/digitalelectronics2/blob/main/lab-project1/flowcharts/ADC_vect.png)
-
+* Display on the LCD the direction of the joystick(UP, DOWN, RIGHT and LEFT) and move the character "I" according to the movements of I.
+* The directions are written on the up left side so the character "I" can't move there.
+* When the character finish the x axis, there is a message displayed, saying "WIN"
 
 
 
 ## VIDEO
 
-Here is the video with the implementation of our project:
+Here is the link to the video for our project:
+
+https://youtube.com/shorts/Z7tvvirNyhg?feature=share
 
 
 ## REFERENCES
