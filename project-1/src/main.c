@@ -144,9 +144,7 @@ ISR(ADC_vect)
         lcd_puts("DOWN");
         lcd_gotoxy(var_x, 1);
         lcd_puts("I");
-    
-
-    }
+        }
 
     
         if( value < 500){
@@ -160,8 +158,9 @@ ISR(ADC_vect)
           lcd_gotoxy(var_x, var_y);
           lcd_puts("I");
         }
-    }
+        }
       break;
+            
     case 0:
       ADMUX = ADMUX & ~(1<<MUX3 | 1<<MUX2 | 1<<MUX1 | 1<<MUX0);
 
@@ -175,26 +174,22 @@ ISR(ADC_vect)
         lcd_gotoxy(var_x-1, var_y);
         lcd_puts("I");
         var_x=var_x-1;
-
-    }
-    if( value < 480){
-
+        }
+            
+        if( value < 480){
         lcd_clrscr();
-        
         lcd_gotoxy(1, 0);
         lcd_puts("RIGHT");
         lcd_gotoxy(var_x+1, var_y);
         lcd_puts("I");
         var_x+=1;
+        }
 
-
-    }
-
-    if(var_x>15){
-      lcd_clrscr();
-      lcd_gotoxy(1, 0);
-      lcd_puts("WIN");
-    }
+        if(var_x>15){
+          lcd_clrscr();
+          lcd_gotoxy(1, 0);
+          lcd_puts("WIN");
+        }
 
     }
 
