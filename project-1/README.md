@@ -104,7 +104,16 @@ We created a main.c file inside ```src``` folder.In the main code you can find o
 
 - [Main file](https://github.com/Atchaya23/digital-electronics-2/blob/main/project-1/src/main.c) main.c.
 
-Here are the flowcharts of the main function and ISRs of our project.
+### Flowcharts
+
+Flowchart of the main function
+![IMG-9362](https://user-images.githubusercontent.com/114863539/206878569-2c072acf-68c7-4eec-b1e2-1cf9e1f6faef.jpg)
+
+Flowchart of ISR(TIMER1_OVF_vect)
+![image](https://user-images.githubusercontent.com/114863539/206878635-8cd0e8ad-0f28-49ee-8460-ba68bf7e19cf.png)
+
+Flowchart of ISR(ADC_vect)
+
 
 ### int main()
 
