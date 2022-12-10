@@ -104,7 +104,7 @@ We created a main.c file inside ```src``` folder.In the main code you can find o
 - [Main file](https://github.com/Atchaya23/digital-electronics-2/blob/main/project-1/src/main.c) main.c.
 
 
-### Flowcharts
+### FLOWCHARTS
 
 Flowchart of the main function
 
