@@ -5,44 +5,38 @@
 - 
 ## HARDWARE DESCRIPTION
 
-![Image of all hardware](https://github.com/NestorGorrotxategi/digitalelectronics2/blob/main/lab-project1/Schematic.png)
+For our project, we used the next components:
 
-As we see in the picture above, we have used the following hardware for our project:
 - Arduino Uno with AtmelMega328P MCU.
 - Joystick .
 - Digilent PmodCLP LCD module.
+- Breadboard.
 
-We have carried out some research on every piece of hardware that we have been asked to implement for the project:
 
 ### Arduino Uno ATmega328P
 
-Arduino Uno is a microcontroller board based on ATmega328P MCU. It offers 14 digital input/output pins and 6 analog inputs, and a 16MHZ clock signal among others.
+![image](https://user-images.githubusercontent.com/114863539/206877940-41feb3db-5e2c-4d62-a621-a31d320ece04.png)
 
-Using AVR microcontroller, pins are associated into so-called ports, which are marked with the letters A,B,C,... Each of the pins is controlled independently and can either work as input or output point of the MCU. Control is only possible ussing control registers.
+Arduino UNO is a microcontroller board based on the ATmega328P. It has 14 digital input/output pins (of which 6 can be used as PWM outputs), 6 analog inputs, a 16 MHz ceramic resonator, a USB connection, a power jack, an ICSP header and a reset button. 
 
 Our hardware has been connected to these pins, and we have used different registers and commands for the software implementation.
 
 ### Joystick
 
-![Image of all hardware](https://github.com/NestorGorrotxategi/digitalelectronics2/blob/main/lab-project1/joystick%20image.jpg)
+![image](https://user-images.githubusercontent.com/114863539/206877890-6c17b4d4-ae4d-4fff-8d66-6b673cac62f4.png)
 
-The basic principle of the analog joystick is a set of two interconnected potentiometers which provide information about vertical (Y-axis) and horizontal (X-axis) movement. In addition, the joystick also comes with a Select switch.
+The Analog Joystick is similar to two potentiometers connected together, one for the vertical movement (Y-axis) and other for the horizontal movement (X-axis). The joystick also comes with a Select switch.
 
-![Image of all hardware](https://github.com/NestorGorrotxategi/digitalelectronics2/blob/main/lab-project1/joystick%20axis.avif)
+The home position for the stick is at ( x,y:511,511). If the stick is moved on X axis, the X values will change between 0 to 1023 and similarly when the Y axis is moved by the stick.
 
-Apart from the VCC and GND pins for the Joystick which are connected to their corresponding pins in the breadboard, it has 3 other connections: 2 analog signals (Vrx for X and Vry for Y axis information) and a digital signal (switch). 
+![image](https://user-images.githubusercontent.com/114863539/206878131-a2a6d708-3ee7-4932-9f09-46751da8e7bc.png)
 
-The first signals have to be processed by ADC channels. This is why **Vrx** and **Vry** have been connected respectively to **A0** and **A1 ADC channels** on the Arduino board as we see on the scheme.
-
-As far as the **switch** connection is concerned, as it is a digital signal, it has been connected to **digital pin 13 (PB5)** as an input.
 
 ### Digilent PmodCLP LCD module
 
-![Image of all hardware](https://github.com/NestorGorrotxategi/digitalelectronics2/blob/main/lab-project1/Digilent_PmodCLP_30044294-01.jpg)
+![image](https://user-images.githubusercontent.com/114863539/206877926-a9289cf0-c34a-429e-9641-afbe14eca79b.png)
 
-The Digilent PmodCLP is a 16x2 character LCD used to display up to 32 different characters at a time. It uses a 8-bit parallel data interface for communication.
-
-
+The Digilent Pmod CLP is a 16×2 character LCD module that uses a 8-bit parallel data interface to display up to 32 different characters.
 
 
 ### IMPLEMENTATION
@@ -55,7 +49,7 @@ To implement our idea, we read the value of our joystick and display it on our L
 
 ## SOFTWARE DESCRIPTION
 
-Our project's library and source has the following structure:
+The structure of our project :
 ```
 ├── lib
 |   ├── Joystick
@@ -74,13 +68,14 @@ Our project's library and source has the following structure:
 
 ### GPIO
 
-Some control registers from AVR MCU are defined in this library in order to make coding easier. This library is divided into two types of files: header files and source files.
+GPIO library includes a set of routines for easier handling of the General Purpose Input/Output ( GPIO ) pin functions. 
 
-The first type usually contains definitions of data types, function prototypes, includes, definitions and C preprocessor commands. As it is indicated by its name, the extension of header file is **.h**. 
+For clarity and efficiency of the code, the individual parts of the application in C are divided into two types of files: header files and source files.
 
-Source file **.c** is used to implement the code.
+Header file is a file with extension .h and contains definitions of data types, function prototypes and C preprocessor commands. 
+Source file has the extension .c and is used to implementation the code. 
 
-To implement this library in our code, we use ```#include``` directive. Then, whenever a function from this library is called, the control of the program is transferred to the function.
+To implement this library in our code, we use ```#include``` directive. 
 
 Our GPIO library consists of:
 - [Header file](https://github.com/Atchaya23/digital-electronics-2/blob/main/project-1/lib/gpio/gpio.h) gpio.h.
@@ -89,7 +84,8 @@ Our GPIO library consists of:
 
 ### LCD
 
-So as to make LCD registers and commands easier, we are using a LCD library file developped by Peter Fleury which consist of 3 files:
+For LCD, we used the library developed by Peter Fleury that we have already used in class.
+In this library, thera are 3 files, two header files and one source file.
 
 - [Header file](https://github.com/Atchaya23/digital-electronics-2/blob/main/project-1/lib/lcd/lcd.h) lcd.h.
 - [Source file](https://github.com/Atchaya23/digital-electronics-2/blob/main/project-1/lib/lcd/lcd.c) lcd.c.
@@ -120,7 +116,6 @@ Here are the flowcharts of the main function and ISRs of our project.
 
 
 
-
 ### ISR(Timer1)
 
 * Start ADC conversion.
@@ -134,7 +129,6 @@ Here are the flowcharts of the main function and ISRs of our project.
 * When the character finish the x axis, there is a message displayed, saying "WIN"
 
 
-
 ## VIDEO
 
 Here is the link to the video for our project:
@@ -143,3 +137,6 @@ https://youtube.com/shorts/Z7tvvirNyhg?feature=share
 
 
 ## REFERENCES
+https://docs.arduino.cc/hardware/uno-rev3
+https://exploreembedded.com/wiki/Analog_JoyStick_with_Arduino
+https://digilent.com/reference/pmod/pmodclp/start
