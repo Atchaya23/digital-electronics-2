@@ -1,12 +1,7 @@
 /***********************************************************************
  * 
- * Stopwatch by Timer/Counter2 on the Liquid Crystal Display (LCD)
  *
  * ATmega328P (Arduino Uno), 16 MHz, PlatformIO
- *
- * Copyright (c) 2017 Tomas Fryza
- * Dept. of Radio Electronics, Brno University of Technology, Czechia
- * This work is licensed under the terms of the MIT license.
  * 
  * Components:
  *   16x2 character LCD with parallel interface
